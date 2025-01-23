@@ -28,77 +28,122 @@ use App\Http\Controllers\socialLink\socialLinkController;
 */
 
 /**** AUTHENTICATION ROUTES ****/
-Route::post('/user-registration', [authController::class, 'register']); // User Registration
-Route::post('/user-login', [authController::class, 'login']); // User Login
-Route::post('/send-otp', [authController::class, 'sendOtp']); // Send OTP
-Route::post('/verify-otp', [authController::class, 'verifyOtp']); // Verify OTP
-Route::post('/reset-password', [authController::class, 'resetPassword'])->middleware([tokenVerificationMiddleware::class]); // Reset Password
-Route::post('/changePassword', [authController::class, 'changePassword'])->middleware([tokenVerificationMiddleware::class]); // Change Password
-Route::get('/user-logout', [authController::class, 'logout']); // User Logout
+// Handles user registration
+Route::post('/user-registration', [authController::class, 'register']);
+
+// Handles user login
+Route::post('/user-login', [authController::class, 'login']);
+
+// Sends OTP for verification
+Route::post('/send-otp', [authController::class, 'sendOtp']);
+
+// Verifies OTP for user authentication
+Route::post('/verify-otp', [authController::class, 'verifyOtp']);
+
+// Allows users to reset their password (requires token verification)
+Route::post('/reset-password', [authController::class, 'resetPassword'])->middleware([tokenVerificationMiddleware::class]);
+
+// Allows users to change their password (requires token verification)
+Route::post('/changePassword', [authController::class, 'changePassword'])->middleware([tokenVerificationMiddleware::class]);
+
+// Logs out the user
+Route::get('/user-logout', [authController::class, 'logout']);
 
 /**** CONTACT ROUTES ****/
-Route::post('/create-contact', [contactController::class, 'createContact'])->middleware([tokenVerificationMiddleware::class]); // Create Contact
-Route::post('/update-contact', [contactController::class, 'updateContact'])->middleware([tokenVerificationMiddleware::class]); // Update Contact
-Route::post('/delete-contact', [contactController::class, 'deleteContact'])->middleware([tokenVerificationMiddleware::class]); // Delete Contact
-Route::get('/contact-list', [contactController::class, 'contactList'])->middleware([tokenVerificationMiddleware::class]); // Get Contact List
-Route::post('/contactById', [contactController::class, 'contactById'])->middleware([tokenVerificationMiddleware::class]); // Get Contact By Id
-Route::get('/contact-count', [contactController::class, 'contactCount'])->middleware([tokenVerificationMiddleware::class]); // Get Contact Count
+// Creates a new contact (requires token verification)
+Route::post('/create-contact', [contactController::class, 'createContact'])->middleware([tokenVerificationMiddleware::class]);
+
+// Updates an existing contact (requires token verification)
+Route::post('/update-contact', [contactController::class, 'updateContact'])->middleware([tokenVerificationMiddleware::class]);
+
+// Deletes a contact (requires token verification)
+Route::post('/delete-contact', [contactController::class, 'deleteContact'])->middleware([tokenVerificationMiddleware::class]);
+
+// Retrieves a list of contacts (requires token verification)
+Route::get('/contact-list', [contactController::class, 'contactList'])->middleware([tokenVerificationMiddleware::class]);
+
+// Retrieves contact details by ID (requires token verification)
+Route::post('/contactById', [contactController::class, 'contactById'])->middleware([tokenVerificationMiddleware::class]);
+
+// Counts the total number of contacts (requires token verification)
+Route::get('/contact-count', [contactController::class, 'contactCount'])->middleware([tokenVerificationMiddleware::class]);
+
 /**** PROFILE ROUTES ****/
-Route::post('/create-profile', [userProfileController::class, 'createProfile'])->middleware([tokenVerificationMiddleware::class]); // Create Profile
-Route::post('/update-profile', [userProfileController::class, 'updateProfile'])->middleware([tokenVerificationMiddleware::class]); // Update Profile
-Route::get('/delete-profile', [userProfileController::class, 'deleteProfile'])->middleware([tokenVerificationMiddleware::class]); // Delete Profile
-Route::get('/get-profile', [userProfileController::class, 'getProfile'])->middleware([tokenVerificationMiddleware::class]); // Get Profile
+// Creates a new user profile (requires token verification)
+Route::post('/create-profile', [userProfileController::class, 'createProfile'])->middleware([tokenVerificationMiddleware::class]);
+
+// Updates an existing user profile (requires token verification)
+Route::post('/update-profile', [userProfileController::class, 'updateProfile'])->middleware([tokenVerificationMiddleware::class]);
+
+// Deletes a user profile (requires token verification)
+Route::get('/delete-profile', [userProfileController::class, 'deleteProfile'])->middleware([tokenVerificationMiddleware::class]);
+
+// Retrieves user profile information (requires token verification)
+Route::get('/get-profile', [userProfileController::class, 'getProfile'])->middleware([tokenVerificationMiddleware::class]);
 
 /**** SOCIAL LINK ROUTES ****/
-Route::post('/create-social-link', [socialLinkController::class, 'createSocialLink'])->middleware([tokenVerificationMiddleware::class]); // Create Social Link
-Route::post('/update-social-link', [socialLinkController::class, 'updateSocialLink'])->middleware([tokenVerificationMiddleware::class]); // Update Social Link
-Route::get('/get-social-link', [socialLinkController::class, 'getSocialLink'])->middleware([tokenVerificationMiddleware::class]); // Get Social Link
-Route::get('/delete-social-link', [socialLinkController::class, 'deleteSocialLink'])->middleware([tokenVerificationMiddleware::class]); // Delete Social Link
+// Creates a new social link (requires token verification)
+Route::post('/create-social-link', [socialLinkController::class, 'createSocialLink'])->middleware([tokenVerificationMiddleware::class]);
+
+// Updates an existing social link (requires token verification)
+Route::post('/update-social-link', [socialLinkController::class, 'updateSocialLink'])->middleware([tokenVerificationMiddleware::class]);
+
+// Retrieves social link information (requires token verification)
+Route::get('/get-social-link', [socialLinkController::class, 'getSocialLink'])->middleware([tokenVerificationMiddleware::class]);
+
+// Deletes a social link (requires token verification)
+Route::get('/delete-social-link', [socialLinkController::class, 'deleteSocialLink'])->middleware([tokenVerificationMiddleware::class]);
 
 /**** About ROUTES ****/
-Route::post('/create-about', [aboutController::class, 'createAbout'])->middleware([tokenVerificationMiddleware::class]); // Create About
-Route::post('/update-about', [aboutController::class, 'updateAbout'])->middleware([tokenVerificationMiddleware::class]); // Update About
-Route::get('/get-about', [aboutController::class, 'getAbout'])->middleware([tokenVerificationMiddleware::class]); // Get About
-Route::get('/delete-about', [aboutController::class, 'deleteAbout'])->middleware([tokenVerificationMiddleware::class]); // Delete About
+// Creates a new "About" section (requires token verification)
+Route::post('/create-about', [aboutController::class, 'createAbout'])->middleware([tokenVerificationMiddleware::class]);
 
-/**** User role Management ROUTES **** */
+// Updates the "About" section (requires token verification)
+Route::post('/update-about', [aboutController::class, 'updateAbout'])->middleware([tokenVerificationMiddleware::class]);
 
-// User role Management
+// Retrieves the "About" section (requires token verification)
+Route::get('/get-about', [aboutController::class, 'getAbout'])->middleware([tokenVerificationMiddleware::class]);
+
+// Deletes the "About" section (requires token verification)
+Route::get('/delete-about', [aboutController::class, 'deleteAbout'])->middleware([tokenVerificationMiddleware::class]);
+
+/**** User Role Management ROUTES ****/
+// Updates user role (requires token verification)
 Route::post('/update-role', [userRoleController::class, 'updateRole'])->middleware([tokenVerificationMiddleware::class]);
 
-// Get User
+// Retrieves user information (requires token verification)
 Route::get('/get-user', [userRoleController::class, 'getUser'])->middleware([tokenVerificationMiddleware::class]);
 
-// Get Admin
+// Retrieves admin information (requires token verification)
 Route::get('/get-admin', [userRoleController::class, 'getAdmin'])->middleware([tokenVerificationMiddleware::class]);
 
-// Delete User
+// Deletes a user (requires token verification)
 Route::post('/delete-user', [userRoleController::class, 'deleteUser'])->middleware([tokenVerificationMiddleware::class]);
 
-// pages **************************************************************************************
-
-// Dashboard Page
+/**** Pages ROUTES ****/
+// Displays the dashboard page (requires token verification)
 Route::get('/dashboard', [dashboardController::class, 'DashboardPage'])->middleware([tokenVerificationMiddleware::class]);
 
-// Reset Password Page
+// Displays the reset password page (requires token verification)
 Route::get('/resetPassword', [authPageController::class, 'ResetPasswordPage'])->middleware([tokenVerificationMiddleware::class]);
 
+// Displays the contact page (requires token verification)
 Route::get('/contact', [contactPageController::class, 'ContactPage'])->middleware([tokenVerificationMiddleware::class]);
 
+// Displays the admin user management page (requires token verification)
 Route::get('/all-o-user', [adminUserPageController::class, 'ContactPage'])->middleware([tokenVerificationMiddleware::class]);
 
-// Profile Page Route
+// Displays the user profile page (requires token verification)
 Route::get('/userProfile', [profileController::class, 'ProfilePage'])->middleware([tokenVerificationMiddleware::class]);
 
-
-// Report Page Route
+// Displays the report page (requires token verification)
 Route::get('/reportPage', [contactPdfcontroller::class, 'ReportPage'])->middleware([tokenVerificationMiddleware::class]);
 
+// Retrieves the contact list in PDF format (requires token verification)
 Route::get("/getPdfContact", [contactPdfcontroller::class, 'getContactList'])->middleware([tokenVerificationMiddleware::class]);
 
-// Get Contact By Id PDF
+// Retrieves a contact by ID in PDF format (requires token verification)
 Route::get("/getPdfContactById/{contact_id}", [contactPdfcontroller::class, 'getContactListById'])->middleware([tokenVerificationMiddleware::class]);
 
-
-// Password Change Route
+// Displays the password change page (requires token verification)
 Route::get('/passwordChange', [passChangeController::class, 'PasswordChangePage'])->middleware([tokenVerificationMiddleware::class]);
