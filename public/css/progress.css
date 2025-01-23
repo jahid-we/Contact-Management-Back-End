@@ -1,0 +1,83 @@
+﻿.LoadingOverlay {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent dark background */
+    z-index: 500000 !important;
+}
+
+/* Progress Line Container */
+.Line-Progress {
+    position: relative;
+    width: 80%; /* Width of the progress bar */
+    max-width: 600px;
+    height: 5px;
+    background-color: rgba(255, 255, 255, 0.3); /* Light background for the bar */
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Progress Animation */
+.Line-Progress .indeterminate {
+    background-color: #e91e63; /* Pink progress color */
+}
+
+.Line-Progress .indeterminate:before,
+.Line-Progress .indeterminate:after {
+    content: "";
+    position: absolute;
+    height: 100%;
+    top: 0;
+    background-color: inherit;
+    will-change: left, right;
+    animation: indeterminate 2s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+}
+
+/* Progress Movement */
+.Line-Progress .indeterminate:before {
+    left: -40%; /* Start outside */
+    right: 100%; /* End outside */
+}
+
+.Line-Progress .indeterminate:after {
+    left: -150%;
+    right: 100%;
+    animation: indeterminate-short 2s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+    animation-delay: 1s;
+}
+
+/* Keyframes for Smooth Animation */
+@keyframes indeterminate {
+    0% {
+        left: -40%;
+        right: 100%;
+    }
+    60% {
+        left: 100%;
+        right: -20%;
+    }
+    100% {
+        left: 100%;
+        right: -20%;
+    }
+}
+
+@keyframes indeterminate-short {
+    0% {
+        left: -150%;
+        right: 100%;
+    }
+    60% {
+        left: 100%;
+        right: -50%;
+    }
+    100% {
+        left: 100%;
+        right: -50%;
+    }
+}
